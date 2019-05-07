@@ -31,7 +31,11 @@
                 .withFooterText(user)
                 .withFooterIcon(targetLogo)
             .build();
+<<<<<<< HEAD
             $.discordAPI.sendMessageEmbed("vorschläge", message);//** change moderator-room to whatever channel you want **//
+=======
+            $.discordAPI.sendMessageEmbed("vorschläge",message);//** change moderator-room to whatever channel you want **//
+>>>>>>> 47ce32c812aaeb1c76e2e8da3b162de48865297a
             $.say("Suggestion saved!");
         }
     });
@@ -55,9 +59,15 @@
                 .withDesc(arg)
                 .withTimestamp(Date.now())
                 .withFooterText(sender)
+<<<<<<< HEAD
                 .withFooterIcon(sender.getProfilePicture())
             .build();
             $.discordAPI.sendMessageEmbed("vorschläge", message);
+=======
+                .withFooterIcon(targetLogo)
+            .build();
+            $.discordAPI.sendMessageEmbed("vorschläge",message);
+>>>>>>> 47ce32c812aaeb1c76e2e8da3b162de48865297a
             $.discord.say(channel, "Suggestion saved!");
         }
     });
