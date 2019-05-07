@@ -41,6 +41,7 @@
             arg = event.getArgs(),
             channel = event.getChannel(),
             sender = event.getSender();
+            senderLogo = $.discordAPI.
 
         if(command.equalsIgnoreCase('suggestion')){
 
