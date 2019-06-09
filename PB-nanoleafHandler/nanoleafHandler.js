@@ -6,6 +6,7 @@
  * @author MatBuc
  *
  */
+
 (function () {
     if ($.inidb.FileExists(nanoleafHandler) === false) {
         $.inidb.set(nanoleafHandler, port, '16021');
