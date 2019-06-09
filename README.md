@@ -1,2 +1,2 @@
-# PB-Scripts-dev
+# PB-Scripts
 My personal Git-Repo for Scripts under Development
