@@ -6,42 +6,46 @@
  * @author MatBuc
  *
  */
-
 (function () {
-    if ($.inidb.FileExists(nanoleafHandler)==false) {
+    if ($.inidb.FileExists(nanoleafHandler) === false) {
         $.inidb.set(nanoleafHandler, port, '16021');
         $.inidb.set(nanoleafHandler, setup-done, false);
     }
 
-    $.bind('command', function(event) {
+    function request(type, dest, data) {
+        var ip_address = $.inidb.get(nanoleafHandler, ipaddress),
+            port = $.inidb.get(nanoleafHandler, port),
+            accessToken = $.inidb.get(nanoleafHandler, token);
+    } 
+
+    $.bind('command', function (event) {
         var command = event.getCommand(),
             arg = String(event.getArguments()),
-            user = event.getSender().toLowerCase();
-        var action = arg[0];
-        var value = arg[1];
+            user = event.getSender().toLowerCase(),
+            action = arg[0],
+            value = arg[1],
+            value2 = arg[2];
 
-        if(command.equalsIgnoreCase('nanoleaf')){
-            if (action.equalsIgnoreCase('setup')){
-                value2 = arg[2];
-                if(value.equalsIgnoreCase('ip')){
+        if (command.equalsIgnoreCase('nanoleaf')) {
+            if (action.equalsIgnoreCase('setup')) {
+                if (value.equalsIgnoreCase('ip')) {
                     $.inidb.set(nanoleafHandler, ipaddress, value2);
-                } else if(value.equalsIgnoreCase('token')) {
+                } else if (value.equalsIgnoreCase('token')) {
                     $.inidb.set(nanoleafHandler, token, value2);
-                } else if(value.equalsIgnoreCase('port')) {
+                } else if (value.equalsIgnoreCase('port')) {
                     $.inidb.set(nanoleafHandler, port, value2);
                 } else {
                     $.say('Usage: !nanoleaf setup <ip/token> <value>');
                 }
-                
-                if ( $.inibd.exists(nanoleafHandler, ipaddress) && $.inidb.exists(nanoleafHandler, token) ) {
+                if ($.inibd.exists(nanoleafHandler, ipaddress) && $.inidb.exists(nanoleafHandler, token)) {
                     $.inidb.SetBoolean(nanoleafHandler, internal, setup-done, true);
                 }
-            } else if ( $.inidb.GetBoolean(nanoleafHandler, internal, setup-done)==false ) {
+            } else if ($.inidb.GetBoolean(nanoleafHandler, internal, setup-done) === false) {
                 $.say('Before you can control your nanoleaf lights, you must first run the setup.');
                 $.say('Use for setup: !nanoleaf setup ip <IP address> and !nanoleaf setup token <API-token>');
                 $.say('To get your API token, execute the following command in the console and shortly before that press the power button of your nanoleaf for 5-7 seconds.');
-                if ( $.inidb.exists(nanoleafHandler,ipaddress) ) {
-                    $.say('curl -v -X POST http://' + $.inidb.get(nanoleafHandler,ipaddress) + ':' + $.inidb.get(nanoleafHandler,port) +'/api/v1/new');
+                if ($.inidb.exists(nanoleafHandler, ipaddress)) {
+                    $.say('curl -v -X POST http://' + $.inidb.get(nanoleafHandler, ipaddress) + ':' + $.inidb.get(nanoleafHandler, port) +'/api/v1/new');
                 } else {
                     $.say('curl -v -X POST http://<IP address>:16021/api/v1/new');
                 }
@@ -60,14 +64,14 @@
                         if (requestG.readyState == 4 && requestG.status == 200) {
                             var resp = JSON.parse(requestG.responseText);
                             if (value === undefined) {
-                                var valueP != resp.value;
-                            } else if (value.equalsIgnoreCase('on') && resp.value != true ) {
+                                var valueP !== resp.value;
+                            } else if (value.equalsIgnoreCase('on') && resp.value !== true) {
                                 var valueP = true;
-                            } else if (value.equalsIgnoreCase('on') && resp.value == true ) {
+                            } else if (value.equalsIgnoreCase('on') && resp.value === true) {
                                 $.say('The Nanoleaf are already on.');
-                            } else if (value.equalsIgnoreCase('off') && resp.value != false ) {
+                            } else if (value.equalsIgnoreCase('off') && resp.value !== false) {
                                 var valueP = false;
-                            } else if (value.equalsIgnoreCase('on') && resp.value == false ) {
+                            } else if (value.equalsIgnoreCase('on') && resp.value === false) {
                                 $.say('The Nanoleaf are already off.');
                             } else {
                                 $.say('Usage: !nanoleaf toggle [on/off]');
@@ -76,7 +80,7 @@
                         if (valueP !== undefined) {
                             requestP.open('PUT', 'http://' + ip_address + ':' + port + '/api/v1/' + accessToken + '/state/on', false);
                             requestP.send({"value":valueP});
-                            if (valueP == true) {
+                            if (valueP === true) {
                                 var NLstate = 'on';
                             } else {
                                 var NLstate = 'off';
@@ -92,7 +96,7 @@
                     function processRequest(e) {
                         if (requestG.readyState == 4 && requestG.status == 200) {
                             var resp = JSON.parse(requestG.responseText);
-                            if (value === undefined){
+                            if (value === undefined) {
                                 $.say('Brightness of the Nanoleaf: ' + resp.value);
                             } else if (/[0-9]+/i.test(value) && value == resp.value) {
                                 $.say('Brightness of Nanoleaf is already set to ' + resp.value);
@@ -120,7 +124,7 @@
                     function processRequest(e) {
                         if (requestG.readyState == 4 && requestG.status == 200) {
                             var resp = JSON.parse(requestG.responseText);
-                            if (value === undefined){
+                            if (value === undefined) {
                                 $.say('Hue of the Nanoleaf: ' + resp.value);
                             } else if (/[0-9]+/i.test(value) && value == resp.value) {
                                 $.say('Hue of Nanoleaf is already set to ' + resp.value);
@@ -148,7 +152,7 @@
                     function processRequest(e) {
                         if (requestG.readyState == 4 && requestG.status == 200) {
                             var resp = JSON.parse(requestG.responseText);
-                            if (value === undefined){
+                            if (value === undefined) {
                                 $.say('Saturation of the Nanoleaf: ' + resp.value);
                             } else if (/[0-9]+/i.test(value) && value == resp.value) {
                                 $.say('Saturation of Nanoleaf is already set to ' + resp.value);
@@ -176,7 +180,7 @@
                     function processRequest(e) {
                         if (requestG.readyState == 4 && requestG.status == 200) {
                             var resp = JSON.parse(requestG.responseText);
-                            if (value === undefined){
+                            if (value === undefined) {
                                 $.say('Color Temperature of the Nanoleaf: ' + resp.value);
                             } else if (/[0-9]+/i.test(value) && value == resp.value) {
                                 $.say('Color Temperature of Nanoleaf is already set to ' + resp.value);
@@ -211,10 +215,10 @@
                                 $.say('Effects available: ' + effects.sort().join(', '));
                             } else if (value.equalsIgnoreCase(resp.select)) {
                                 $.say('Effect "' + resp.select + '" already set.');
-                            } else if (effects.equalsIgnoreCase.indexOf(value) == -1 ){
+                            } else if (effects.equalsIgnoreCase.indexOf(value) == -1) {
                                 $.say('No effect named "' + value + '" found!');
                             } else {
-                                var valueP = effects[effects.findIndex(item => value.toLowerCase() === item.toLowerCase()];
+                                var valueP = effects[effects.findIndex(item => value.toLowerCase() === item.toLowerCase())];
                             }
                         }
                         if (valueP !== undefined) {
@@ -229,7 +233,7 @@
             }
         }
     })
-    $.bind('initReady', function(){
+    $.bind('initReady', function () {
         $.registerChatCommand('./custom/nanoleafHandler.js','nanoleaf',2);
         $.registerChatSubCommand('nanoleaf','setup',0);
         $.registerChatSubCommand('nanoleaf','toggle',1);
