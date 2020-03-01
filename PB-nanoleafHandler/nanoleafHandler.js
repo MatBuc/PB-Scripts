@@ -13,12 +13,6 @@
         $.inidb.set(nanoleafHandler, setup-done, false);
     }
 
-    function request(type, dest, data) {
-        var ip_address = $.inidb.get(nanoleafHandler, ipaddress),
-            port = $.inidb.get(nanoleafHandler, port),
-            accessToken = $.inidb.get(nanoleafHandler, token);
-    } 
-
     $.bind('command', function (event) {
         var command = event.getCommand(),
             arg = String(event.getArguments()),
@@ -65,7 +59,11 @@
                         if (requestG.readyState == 4 && requestG.status == 200) {
                             var resp = JSON.parse(requestG.responseText);
                             if (value === undefined) {
-                                var valueP !== resp.value;
+                                if (resp.value === true){
+                                    var valueP = false;
+                                } else {
+                                    var valueP = true;
+                                }
                             } else if (value.equalsIgnoreCase('on') && resp.value !== true) {
                                 var valueP = true;
                             } else if (value.equalsIgnoreCase('on') && resp.value === true) {
