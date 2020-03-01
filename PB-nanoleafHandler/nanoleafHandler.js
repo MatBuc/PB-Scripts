@@ -238,12 +238,12 @@
     });
     $.bind('initReady', function() {
         $.registerChatCommand('./custom/nanoleafHandler.js','nanoleaf',2);
-        $.registerChatSubCommand('nanoleaf','setup',0);
-        $.registerChatSubCommand('nanoleaf','toggle',1);
-        $.registerChatSubCommand('nanoleaf','brightness',2);
-        $.registerChatSubCommand('nanoleaf','hue',2);
-        $.registerChatSubCommand('nanoleaf','sat',2);
-        $.registerChatSubCommand('nanoleaf','ct',2);
-        $.registerChatSubCommand('nanoleaf','effect',2);
+        $.registerChatSubcommand('nanoleaf','setup',0);
+        $.registerChatSubcommand('nanoleaf','toggle',1);
+        $.registerChatSubcommand('nanoleaf','brightness',2);
+        $.registerChatSubcommand('nanoleaf','hue',2);
+        $.registerChatSubcommand('nanoleaf','sat',2);
+        $.registerChatSubcommand('nanoleaf','ct',2);
+        $.registerChatSubcommand('nanoleaf','effect',2);
     });
 })();
