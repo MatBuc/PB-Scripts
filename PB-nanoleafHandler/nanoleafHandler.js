@@ -8,9 +8,9 @@
  */
 
 (function () {
-    if ($.inidb.FileExists(nanoleafHandler) === false) {
-        $.inidb.set(nanoleafHandler, port, '16021');
-        $.inidb.set(nanoleafHandler, setup-done, false);
+    if ($.inidb.FileExists('nanoleafHandler') === false) {
+        $.inidb.set('nanoleafHandler', 'port', '16021');
+        $.inidb.set('nanoleafHandler', 'setup-done', false);
     }
 
     $.bind('command', function (event) {
@@ -24,30 +24,30 @@
         if (command.equalsIgnoreCase('nanoleaf')) {
             if (action.equalsIgnoreCase('setup')) {
                 if (value.equalsIgnoreCase('ip')) {
-                    $.inidb.set(nanoleafHandler, ipaddress, value2);
+                    $.inidb.set('nanoleafHandler', 'ipaddress', value2);
                 } else if (value.equalsIgnoreCase('token')) {
-                    $.inidb.set(nanoleafHandler, token, value2);
+                    $.inidb.set('nanoleafHandler', 'token', value2);
                 } else if (value.equalsIgnoreCase('port')) {
-                    $.inidb.set(nanoleafHandler, port, value2);
+                    $.inidb.set('nanoleafHandler', 'port', value2);
                 } else {
                     $.say('Usage: !nanoleaf setup <ip/token> <value>');
                 }
-                if ($.inibd.exists(nanoleafHandler, ipaddress) && $.inidb.exists(nanoleafHandler, token)) {
-                    $.inidb.SetBoolean(nanoleafHandler, internal, setup-done, true);
+                if ($.inidb.exists('nanoleafHandler', 'ipaddress') && $.inidb.exists('nanoleafHandler', 'token')) {
+                    $.inidb.SetBoolean('nanoleafHandler', 'internal', 'setup-done', true);
                 }
-            } else if ($.inidb.GetBoolean(nanoleafHandler, internal, setup-done) === false) {
+            } else if ($.inidb.GetBoolean('nanoleafHandler', 'internal', setup-done) === false) {
                 $.say('Before you can control your nanoleaf lights, you must first run the setup.');
                 $.say('Use for setup: !nanoleaf setup ip <IP address> and !nanoleaf setup token <API-token>');
                 $.say('To get your API token, execute the following command in the console and shortly before that press the power button of your nanoleaf for 5-7 seconds.');
-                if ($.inidb.exists(nanoleafHandler, ipaddress)) {
-                    $.say('curl -v -X POST http://' + $.inidb.get(nanoleafHandler, ipaddress) + ':' + $.inidb.get(nanoleafHandler, port) +'/api/v1/new');
+                if ($.inidb.exists('nanoleafHandler', 'ipaddress')) {
+                    $.say('curl -v -X POST http://' + $.inidb.get('nanoleafHandler', 'ipaddress') + ':' + $.inidb.get('nanoleafHandler', 'port') +'/api/v1/new');
                 } else {
                     $.say('curl -v -X POST http://<IP address>:16021/api/v1/new');
                 }
             } else if ($.isOnline('MatBuc')) {
-                var ip_address = $.inidb.get(nanoleafHandler, ipaddress);
-                var port = $.inidb.get(nanoleafHandler, port);
-                var accessToken = $.inidb.get(nanoleafHandler, token);
+                var ip_address = $.inidb.get('nanoleafHandler', 'ipaddress');
+                var port = $.inidb.get('nanoleafHandler', 'port');
+                var accessToken = $.inidb.get('nanoleafHandler', 'token');
                 var requestG = new XMLHttpRequest();
                 var requestP = new XMLHttpRequest();
                 if (action.equalsIgnoreCase('toggle')) {
