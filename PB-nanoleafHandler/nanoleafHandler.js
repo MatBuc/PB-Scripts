@@ -237,7 +237,7 @@
         }
     })
     $.bind('initReady', function () {
-        $.registerChatCommand('./custom/nanoleafHandler.js','nanoleaf',2);
+        $.registerChatCommand('./scripts/custom/nanoleafHandler.js','nanoleaf',2);
         $.registerChatSubCommand('nanoleaf','setup',0);
         $.registerChatSubCommand('nanoleaf','toggle',1);
         $.registerChatSubCommand('nanoleaf','brightness',2);
