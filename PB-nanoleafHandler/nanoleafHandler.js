@@ -64,14 +64,18 @@
                                 } else {
                                     var valueP = true;
                                 }
-                            } else if (value.equalsIgnoreCase('on') && resp.value !== true) {
-                                var valueP = true;
-                            } else if (value.equalsIgnoreCase('on') && resp.value === true) {
-                                $.say('The Nanoleaf are already on.');
+                            } else if (value.equalsIgnoreCase('on')) {
+                                if (resp.value === true){
+                                    $.say('The Nanoleaf are already on.');
+                                } else {
+                                    var valueP = true;
+                                }
                             } else if (value.equalsIgnoreCase('off') && resp.value !== false) {
-                                var valueP = false;
-                            } else if (value.equalsIgnoreCase('on') && resp.value === false) {
-                                $.say('The Nanoleaf are already off.');
+                                if(resp.value === false){
+                                    $.say('The Nanoleaf are already off.');
+                                } else {
+                                    var valueP = false;
+                                }                                
                             } else {
                                 $.say('Usage: !nanoleaf toggle [on/off]');
                             }
