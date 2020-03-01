@@ -235,8 +235,8 @@
                 }
             }
         }
-    })
-    $.bind('initReady', function () {
+    });
+    $.bind('initReady', function() {
         $.registerChatCommand('./scripts/custom/nanoleafHandler.js','nanoleaf',2);
         $.registerChatSubCommand('nanoleaf','setup',0);
         $.registerChatSubCommand('nanoleaf','toggle',1);
@@ -245,5 +245,5 @@
         $.registerChatSubCommand('nanoleaf','sat',2);
         $.registerChatSubCommand('nanoleaf','ct',2);
         $.registerChatSubCommand('nanoleaf','effect',2);
-    })
-})
+    });
+})();
