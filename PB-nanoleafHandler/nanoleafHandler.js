@@ -221,7 +221,7 @@
                             } else if (effects.equalsIgnoreCase.indexOf(value) == -1) {
                                 $.say('No effect named "' + value + '" found!');
                             } else {
-                                var valueP = effects[effects.findIndex(item => value.toLowerCase() === item.toLowerCase())];
+                                var valueP = effects[effects.equalsIgnoreCase.indexOf(value)];
                             }
                         }
                         if (valueP !== undefined) {
